@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #020826;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-logo {
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #fffffe;
+    }
+
+    .menu-buttons {
+      display: flex;
+    }
+
+    .menu-buttons button {
+      margin-left: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #fffffe;
+      background-color: #8c7851;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .menu-buttons button:hover {
+      background-color: #716040;
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #020826;
+    }
+
+    .movie-container {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    #moviePoster {
+      width: 30%;
+      margin-right: 20px;
+    }
+
+    #moviePoster img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    #movieDetails {
+      flex: 1;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .recommended-movies {
+      margin-top: 40px;
+    }
+
+    .recommended-movies h3 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #020826;
+    }
+
+    .movie-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin: -10px;
+    }
+
+    .movie {
+      flex-basis: calc(33.33% - 20px);
+      margin: 10px;
+      padding: 10px;
+      background-color: #ffffff;
+      border: 1px solid #e2e2e2;
+      text-align: center;
+    }
+
+    .movie img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .movie h4 {
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #020826;
+    }
+
+    .movie p {
+      margin: 0;
+      font-size: 14px;
+      color: #716040;
+    }
+
+    #addToWatchlistButton {
+      padding: 8px 16px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fffffe;
+      background-color: #8c7851;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #addToWatchlistButton:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    #backButton {
+      padding: 8px 16px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fffffe;
+      background-color: #8c7851;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #backButton:hover {
+      background-color: #716040;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <div class="menu-logo" onclick="window.location.href = 'index.html'">MeowVie</div>
+    <div class="menu-buttons">
+      <button onclick="window.location.href = 'watchlist.html'">Watchlist</button>
+    </div>
+  </div>
+
+  <h1>Movie Details</h1>
+
+  <div class="movie-container">
+    <div id="moviePoster"></div>
+    <div id="movieDetails" class="movie-details"></div>
+  </div>
+
+  <button id="addToWatchlistButton" disabled>Add to Watchlist</button>
+  <br>
+  <button id="backButton">Back</button>
+
+  <script src="movie.js"></script>
+</body>
+</html>

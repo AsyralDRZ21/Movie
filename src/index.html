@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rasy Movie</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f4ef;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #fffffe;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-logo {
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #020826;
+    }
+
+    .menu-buttons {
+      display: flex;
+    }
+
+    .menu-buttons button {
+      margin-left: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #fffffe;
+      background-color: #8c7851;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .menu-buttons button:hover {
+      background-color: #716040;
+    }
+
+    .content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .search-container input[type="text"] {
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .search-container button {
+      padding: 8px 16px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fffffe;
+      background-color: #8c7851;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .search-container button:hover {
+      background-color: #716040;
+    }
+
+    .movies-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .movie {
+      width: 200px;
+      margin: 20px;
+      padding: 10px;
+      background-color: #fefefe;
+      border: 2px solid #8c7851;
+      text-align: center;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .movie:hover {
+      transform: translateY(-5px);
+      border-color: #716040;
+    }
+
+    .movie h3 {
+      margin-top: 0;
+      font-size: 18px;
+      font-weight: bold;
+      color: #020826;
+    }
+
+    .movie img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .movie-details {
+      display: none;
+      padding: 20px;
+      background-color: #fefefe;
+      border: 2px solid #8c7851;
+      text-align: left;
+    }
+
+    .movie-details.active {
+      display: block;
+    }
+
+    .movie-details p {
+      margin: 10px 0;
+      font-size: 14px;
+      color: #716040;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <div class="menu-logo" onclick="window.location.href = 'index.html'">Rasy Movie</div>
+    <div class="menu-buttons">
+      <button onclick="window.location.href = 'watchlist.html'">Watchlist</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Enter movie title">
+      <button id="searchButton">Search</button>
+    </div>
+
+    <div class="movies-container" id="movies"></div>
+  </div>
+
+  <div class="movie-details" id="movieDetails">
+    <h3 id="movieTitle"></h3>
+    <p id="movieOverview"></p>
+    <p id="movieRating"></p>
+    <p id="movieReleaseDate"></p>
+  </div>
+  <div class="recommended-movies">
+    <h3>Recommended Movies</h3>
+    <div id="recommendedMovies" class="movies-container"></div>
+  </div>  
+
+  <script src="renderer.js"></script>
+</body>
+</html>

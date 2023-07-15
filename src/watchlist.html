@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Watchlist</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f9f4ef; /* Updated background color */
+    }
+
+    .menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #020826; /* Updated menu background color */
+      color: #fffffe; /* Updated menu text color */
+    }
+
+    .menu-logo {
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .menu-buttons {
+      display: flex;
+    }
+
+    .menu-buttons button {
+      margin-left: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #fffffe;
+      background-color: #8c7851; /* Updated button background color */
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .menu-buttons button:hover {
+      background-color: #716040; /* Updated button hover background color */
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #020826; /* Updated heading color */
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-gap: 20px;
+    }
+
+    li {
+      padding: 10px;
+      background-color: #fffffe; /* Updated movie box background color */
+      border: 1px solid #020826; /* Updated movie box border color */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .movie-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .movie-actions button {
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #fffffe;
+      background-color: #8c7851; /* Updated button background color */
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .movie-actions button:hover {
+      background-color: #716040; /* Updated button hover background color */
+    }
+
+    .poster {
+      display: inline-block;
+      width: 100px;
+      height: 150px;
+      margin-right: 10px;
+    }
+
+    .star-rating {
+      display: flex;
+      align-items: center;
+    }
+
+    .star-rating input[type="radio"] {
+      display: none;
+    }
+
+    .star-rating label {
+      font-size: 24px;
+      color: #8c7851; /* Updated star color */
+      cursor: pointer;
+    }
+
+    .star-rating label:hover,
+    .star-rating label:hover ~ label,
+    .star-rating input[type="radio"]:checked ~ label {
+      color: #716040; /* Updated star hover and active color */
+    }
+
+    .star-rating label:before {
+      content: '\2605'; /* Star symbol */
+    }
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <div class="menu-logo" onclick="window.location.href = 'index.html'">MeowVie</div>
+    <div class="menu-buttons">
+      <button onclick="window.location.href = 'watchlist.html'">Watchlist</button>
+    </div>
+  </div>
+  <h1>Watchlist</h1>
+
+  <ul id="watchlist"></ul>
+  <br>
+  <button id="backButton">Back</button>
+
+  <script>
+    // Get the watchlist from local storage
+    let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+
+    // Display watchlist items
+    const watchlistContainer = document.getElementById('watchlist');
+
+    function displayWatchlist() {
+      watchlistContainer.innerHTML = '';
+
+      watchlist.forEach((movie, index) => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+          <div class="poster">
+              <a href="movie.html?id=${movie.ID}">
+                <img src="${movie.poster}" alt="${movie.title} Poster" width="100">
+              </a>
+          </div>
+          <div>
+            <h2>
+              <a href="movie.html?id=${movie.ID}">${movie.title}</a>
+            </h2>
+            <div class="movie-actions">
+              <div class="star-rating">
+                <input type="radio" id="star5_${index}" name="rating_${index}" value="5" onchange="updateRating(${index}, this.value)" ${movie.rating === '5' ? 'checked' : ''} />
+                <label for="star5_${index}"></label>
+                <input type="radio" id="star4_${index}" name="rating_${index}" value="4" onchange="updateRating(${index}, this.value)" ${movie.rating === '4' ? 'checked' : ''} />
+                <label for="star4_${index}"></label>
+                <input type="radio" id="star3_${index}" name="rating_${index}" value="3" onchange="updateRating(${index}, this.value)" ${movie.rating === '3' ? 'checked' : ''} />
+                <label for="star3_${index}"></label>
+                <input type="radio" id="star2_${index}" name="rating_${index}" value="2" onchange="updateRating(${index}, this.value)" ${movie.rating === '2' ? 'checked' : ''} />
+                <label for="star2_${index}"></label>
+                <input type="radio" id="star1_${index}" name="rating_${index}" value="1" onchange="updateRating(${index}, this.value)" ${movie.rating === '1' ? 'checked' : ''} />
+                <label for="star1_${index}"></label>
+              </div>
+              <button onclick="deleteMovie(${index})">Delete</button>
+            </div>
+          </div>
+          <div class="watch-status">
+            <strong>Rating:</strong> ${movie.rating}
+          </div>
+        `;
+        watchlistContainer.appendChild(listItem);
+      });
+    }
+
+    // Add "rating" property to each movie in watchlist if not already present
+    watchlist = watchlist.map((movie) => {
+      if (!movie.hasOwnProperty('rating')) {
+        movie.rating = '1';
+      }
+      return movie;
+    });
+
+    function updateRating(index, rating) {
+      watchlist[index].rating = rating;
+      localStorage.setItem('watchlist', JSON.stringify(watchlist));
+      displayWatchlist();
+    }
+
+    function deleteMovie(index) {
+      watchlist.splice(index, 1);
+      localStorage.setItem('watchlist', JSON.stringify(watchlist));
+      displayWatchlist();
+    }
+
+    displayWatchlist();
+
+    // Add event listener to back button
+    const backButton = document.getElementById('backButton');
+    backButton.addEventListener('click', () => {
+      window.history.back();
+    });
+  </script>
+</body>
+</html>
